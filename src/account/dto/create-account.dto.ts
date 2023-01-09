@@ -2,27 +2,47 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateAccountDto {
-  @ApiProperty()
+  @ApiProperty({
+    description: 'Account name',
+    example: 'Will',
+    required: true,
+  })
   @IsString()
   @IsNotEmpty()
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'Account surname',
+    example: 'Koller',
+    required: true,
+  })
   @IsString()
   @IsNotEmpty()
   surname: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'Account age',
+    example: 33,
+    required: true,
+  })
   @IsNumber()
   @IsNotEmpty()
   age: number;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'Account email',
+    example: 'mail@email.com',
+    required: true,
+  })
   @IsString()
   @IsNotEmpty()
   email: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'Account password',
+    example: 'YourPassword',
+    required: true,
+  })
   @IsString()
   @IsNotEmpty()
   password: string;
