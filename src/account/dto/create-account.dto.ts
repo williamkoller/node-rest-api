@@ -3,22 +3,13 @@ import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateAccountDto {
   @ApiProperty({
-    description: 'Account name',
-    example: 'Will',
+    description: 'Account fullName',
+    example: 'Will Koller',
     required: true,
   })
   @IsString()
   @IsNotEmpty()
-  name: string;
-
-  @ApiProperty({
-    description: 'Account surname',
-    example: 'Koller',
-    required: true,
-  })
-  @IsString()
-  @IsNotEmpty()
-  surname: string;
+  fullName: string;
 
   @ApiProperty({
     description: 'Account age',
