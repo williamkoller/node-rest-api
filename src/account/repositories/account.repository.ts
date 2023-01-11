@@ -1,4 +1,3 @@
-import { ConflictException } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { CreateAccountDto } from '../dto/create-account.dto';
 import { UpdateAccountDto } from '../dto/update-account.dto';
@@ -10,16 +9,8 @@ export class AccountRepository {
 
   create(data: CreateAccountDto): Account {
     const id = randomUUID();
-    const { name, surname, age, email, password } = data;
-    const newAccount = new Account(id, name, surname, age, email, password);
-    const accountExists = this.accounts.find(
-      (account) => email === account.email,
-    );
-    if (accountExists) {
-      throw new ConflictException(
-        'There is already an account with that email',
-      );
-    }
+    const { fullName, age, email, password } = data;
+    const newAccount = new Account(id, fullName, age, email, password);
     this.accounts.push(newAccount);
     return newAccount;
   }
@@ -33,8 +24,8 @@ export class AccountRepository {
   }
 
   update(id: string, data: UpdateAccountDto): Account {
-    const { name, surname, age, email, password } = data;
-    const updatedAccount = new Account(id, name, surname, age, email, password);
+    const { fullName, age, email, password } = data;
+    const updatedAccount = new Account(id, fullName, age, email, password);
     this.accounts = this.accounts.filter((account) => id !== account.id);
     this.accounts.push(updatedAccount);
     return updatedAccount;
