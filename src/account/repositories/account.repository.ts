@@ -1,4 +1,3 @@
-import { ConflictException, NotFoundException } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { CreateAccountDto } from '../dto/create-account.dto';
 import { UpdateAccountDto } from '../dto/update-account.dto';
@@ -12,14 +11,6 @@ export class AccountRepository {
     const id = randomUUID();
     const { fullName, age, email, password } = data;
     const newAccount = new Account(id, fullName, age, email, password);
-    const accountExists = this.accounts.find(
-      (account) => email === account.email,
-    );
-    if (accountExists) {
-      throw new ConflictException(
-        'There is already an account with that email',
-      );
-    }
     this.accounts.push(newAccount);
     return newAccount;
   }
@@ -29,13 +20,7 @@ export class AccountRepository {
   }
 
   findOneById(id: string): Account {
-    const account = this.accounts.find((account) => account.id === id);
-
-    if (!account) {
-      throw new NotFoundException('Account not found.');
-    }
-
-    return account;
+    return this.accounts.find((account) => account.id === id);
   }
 
   update(id: string, data: UpdateAccountDto): Account {
