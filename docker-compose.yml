@@ -4,7 +4,7 @@ services:
     container_name: node-rest-api
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.node
     entrypoint: sh -c 'yarn install --frozen-lockfile && yarn start:dev'
     environment:
       NGINX_PORT: ${NGINX_PORT}
