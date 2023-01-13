@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AccountModule } from './account/account.module';
 import { AppController } from './app.controller';
+import { AccountModule } from './infra/ioc/account.module';
 
 @Module({
   imports: [
