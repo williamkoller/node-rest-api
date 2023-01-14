@@ -75,6 +75,13 @@ export class AccountController {
   }
 
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOkResponse({
+    description: 'Delete an account by id.',
+  })
+  @ApiOperation({
+    summary: 'Delete an account by id.',
+  })
   public async delete(@Param('id') id: string) {
     await this.accountUseCase.deleteOne(id);
   }
