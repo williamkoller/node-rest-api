@@ -35,7 +35,7 @@ describe('Account Test', () => {
       password: 'any_password',
     };
     let account = Account.create(accountProps);
-    account.updateFullName('any_is_name');
+    account.updateFullName(account, 'any_is_name');
     expect(account.fullName).toBe('any_is_name');
   });
 
@@ -47,7 +47,7 @@ describe('Account Test', () => {
       password: 'any_password',
     };
     let account = Account.create(accountProps);
-    account.updateAge(22);
+    account.updateAge(account, 22);
     expect(account.age).toBe(22);
   });
 
@@ -59,7 +59,7 @@ describe('Account Test', () => {
       password: 'any_password',
     };
     let account = Account.create(accountProps);
-    account.updateEmail('any_email_updated@mail.com');
+    account.updateEmail(account, 'any_email_updated@mail.com');
     expect(account.email).toBe('any_email_updated@mail.com');
   });
 
@@ -71,7 +71,7 @@ describe('Account Test', () => {
       password: 'any_password',
     };
     let account = Account.create(accountProps);
-    account.updatePassword('any_password_updated');
+    account.updatePassword(account, 'any_password_updated');
     expect(account.password).toBe('any_password_updated');
   });
 
