@@ -15,8 +15,9 @@ export class Account {
     return new Account(props, id);
   }
 
-  updateFullName(fullName: string) {
+  updateFullName(props: AccountProps, fullName: string): Account {
     this.fullName = fullName;
+    return new Account({ ...props, fullName: this.fullName });
   }
 
   get fullName() {
@@ -27,8 +28,9 @@ export class Account {
     this.props.fullName = value;
   }
 
-  updateAge(age: number) {
+  updateAge(props: AccountProps, age: number): Account {
     this.age = age;
+    return new Account({ ...props, age: this.age });
   }
 
   get age() {
@@ -39,8 +41,9 @@ export class Account {
     this.props.age = value;
   }
 
-  updateEmail(email: string) {
+  updateEmail(props: AccountProps, email: string): Account {
     this.email = email;
+    return new Account({ ...props, email: this.email });
   }
 
   get email() {
@@ -51,8 +54,9 @@ export class Account {
     this.props.email = value;
   }
 
-  updatePassword(password: string) {
+  updatePassword(props: AccountProps, password: string): Account {
     this.password = password;
+    return new Account({ ...props, password: this.password });
   }
 
   get password() {

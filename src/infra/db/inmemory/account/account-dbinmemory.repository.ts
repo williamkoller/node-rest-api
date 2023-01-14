@@ -15,4 +15,14 @@ export class AccountDbInMemoryRepository implements AccountRepositoryInterface {
   async findById(id: string): Promise<Account> {
     return this.accounts.find((account) => account.id === id);
   }
+
+  async update(id: string, input: Account): Promise<Account> {
+    this.accounts = this.accounts.filter((account) => id !== account.id);
+    this.accounts.push(input);
+    return this.accounts.find((account) => account.id === id);
+  }
+
+  async delete(id: string): Promise<void> {
+    this.accounts = this.accounts.filter((account) => id !== account.id);
+  }
 }
