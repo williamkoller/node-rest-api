@@ -3,11 +3,13 @@ import { AccountUseCase } from '@app/usecases/account/account.usecase';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
   Param,
   Post,
+  Put,
 } from '@nestjs/common';
 import {
   ApiCreatedResponse,
@@ -55,5 +57,25 @@ export class AccountController {
   })
   public async findOne(@Param('id') id: string) {
     return await this.accountUseCase.findOne(id);
+  }
+
+  @Put(':id')
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse({
+    description: 'Find an account by id and update.',
+  })
+  @ApiOperation({
+    summary: 'Find an account by id and update.',
+  })
+  public async update(
+    @Param('id') id: string,
+    @Body() addAccountDto: AddAccountDto,
+  ) {
+    return await this.accountUseCase.updateOne(id, addAccountDto);
+  }
+
+  @Delete(':id')
+  public async delete(@Param('id') id: string) {
+    await this.accountUseCase.deleteOne(id);
   }
 }
