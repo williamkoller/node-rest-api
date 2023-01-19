@@ -27,6 +27,14 @@ jobs:
       - name: Run the tests
         run: yarn test
 
+      - name: Run the tests coverage
+        run: yarn test:cov
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}  
+
       - name: Install Railway
         run: npm i -g @railway/cli
 
