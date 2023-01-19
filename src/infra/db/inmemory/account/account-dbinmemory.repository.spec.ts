@@ -62,7 +62,7 @@ describe('AccountInMemoryRepository Test', () => {
     expect(repository.accounts).toStrictEqual([account]);
   });
 
-  it('should be updateOne a account', async () => {
+  it('should be deleteOne a account', async () => {
     const repository = new AccountDbInMemoryRepository();
     let accountProps: AccountProps = {
       fullName: 'any_name',
