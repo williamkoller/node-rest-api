@@ -4,24 +4,15 @@ import {
   AccountInput,
   AccountOutput,
 } from '@app/shared/types/account/account.type';
-import { pbkdf2Sync, randomBytes } from 'crypto';
+import { hashSync } from 'bcrypt';
 
 export class AccountUseCase {
-  private interations = 1000;
-  private length = 64;
-  private salt = randomBytes(16).toString('hex');
   constructor(private readonly accountRepo: AccountRepositoryInterface) {}
 
   async add(input: AccountInput): Promise<AccountOutput> {
     const account = Account.create({
       ...input,
-      password: pbkdf2Sync(
-        input.password,
-        this.salt,
-        this.interations,
-        this.length,
-        'sha512',
-      ).toString('hex'),
+      password: hashSync(input.password, 12),
     });
     await this.accountRepo.insert(account);
     return account.toJSON();
@@ -42,19 +33,10 @@ export class AccountUseCase {
     updateAccount.updateAge(updateAccount, input.age);
     updateAccount.updateEmail(updateAccount, input.email);
 
-    updateAccount.updatePassword(
-      updateAccount,
-      pbkdf2Sync(
-        input.password,
-        this.salt,
-        this.interations,
-        this.length,
-        'sha512',
-      ).toString('hex'),
-    );
+    updateAccount.updatePassword(updateAccount, hashSync(input.password, 12));
 
     return {
-      id: account.id,
+      id: updateAccount.id,
       fullName: updateAccount.fullName,
       age: updateAccount.age,
       email: updateAccount.email,
@@ -63,6 +45,6 @@ export class AccountUseCase {
   }
 
   async deleteOne(id: string): Promise<void> {
-    await this.accountRepo.delete(id);
+    this.accountRepo.delete(id);
   }
 }
